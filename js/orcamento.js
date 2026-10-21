@@ -4,6 +4,27 @@ const inputServico = document.querySelector("#servico");
 const inputQuantidade = document.querySelector("#quantidade");
 const resultado = document.querySelector("#resultado");
 
+const servicos = [
+  { nome: "Fomatação", preco: 120 },
+  { nome: "Limpeza", preco: 180 },
+  { nome: "Instalação", preco: 50 },
+];
+
+function atualizaServicos() {
+  (inputServico,
+    (innerHTML = '<option value="">Selecione um Serviço</option>'));
+
+  for (let i = 0; i < servicos.length; i++) {
+    const opcao = document.createElement("option");
+    opcao.value = servocps[i].preco;
+
+    opcao.textContent = `${servicos[i].nome} - R$ ${servicos[i].preco}`;
+
+    inputServico = appendChild(opcao);
+  }
+}
+console.log(servicos[1].nome);
+
 formulario.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -37,3 +58,41 @@ function calcularTotal(preco, quantidade) {
   }
   return total;
 }
+const formCadastro = document.querySelector("#formCadastro");
+const novoNome = document.querySelector("#novoNome");
+const novoPreco = document.querySelector("#novoPreco");
+const avisoCadastro = document.querySelector("#avisoCadastro");
+
+formCadastro.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const nome = novoNome.value.trim();
+  const precoTexto = novoPreco.value.trim();
+  const preco = Number(precoTexto);
+
+  avisoCadastro.classList.remove("d-none", "alert-success", "alert-warning");
+
+  if (
+    nome === "" ||
+    precoTexto === "" ||
+    !Number.isFinite(preco) ||
+    preco <= 0
+  ) {
+    avisoCadastro.textContent = "Informe nome e preço válidos.";
+    avisoCadastro.classList.add("alert-warning");
+    return;
+  }
+
+  servicos.push({
+    nome: nome,
+    preco: preco,
+  });
+
+  atualizarServicos();
+  formCadastro.reset();
+
+  avisoCadastro.textContent = "Serviço cadastrado!";
+  avisoCadastro.classList.add("alert-success");
+});
+
+atualizaServicos;

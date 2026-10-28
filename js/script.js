@@ -8,9 +8,8 @@ formulario.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const nome = inputNome.value.trim();
-  const idade = Number(inputIdade.value);
-
-  console.log("Clicou!");
+  const idadeTexto = inputIdade.value.trim();
+  const idade = Number(idadeTexto);
 
   resultado.classList.remove(
     "d-none",
@@ -20,14 +19,14 @@ formulario.addEventListener("submit", function (event) {
     "alert-warning",
   );
 
-  if (nome === "" || idade === "") {
+  if (nome === "" || idadeTexto === "") {
     resultado.textContent = "Preencha todos os campos!";
     resultado.classList.add("alert-warning");
     return;
   }
 
   if (idade >= 18) {
-    resultado.textContent = `Olá,  ${nome}! Você é maior de idade.`;
+    resultado.textContent = `Olá, ${nome}! Você é maior de idade.`;
     resultado.classList.add("alert-success");
   } else {
     resultado.textContent = `Olá ${nome}! Você é menor de idade. Não volte aqui nunca mais, CRIANÇA!`;

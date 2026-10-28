@@ -4,40 +4,50 @@ const inputServico = document.querySelector("#servico");
 const inputQuantidade = document.querySelector("#quantidade");
 const resultado = document.querySelector("#resultado");
 
+const formCadastro = document.querySelector("#formCadastro");
+const novoNome = document.querySelector("#novoNome");
+const novoPreco = document.querySelector("#novoPreco");
+const avisoCadastro = document.querySelector("#avisoCadastro");
+
 const servicos = [
-  { nome: "Fomatação", preco: 120 },
+  { nome: "Formatação", preco: 120 },
   { nome: "Limpeza", preco: 180 },
   { nome: "Instalação", preco: 50 },
 ];
 
 function atualizaServicos() {
-  (inputServico,
-    (innerHTML = '<option value="">Selecione um Serviço</option>'));
+  inputServico.innerHTML = '<option value="">Selecione um Serviço</option>';
 
   for (let i = 0; i < servicos.length; i++) {
     const opcao = document.createElement("option");
-    opcao.value = servocps[i].preco;
-
-    opcao.textContent = `${servicos[i].nome} - R$ ${servicos[i].preco}`;
-
-    inputServico = appendChild(opcao);
+    opcao.value = servicos[i].preco;
+    opcao.textContent = `${servicos[i].nome} - R$ ${servicos[i].preco.toFixed(2)}`;
+    inputServico.appendChild(opcao);
   }
 }
-console.log(servicos[1].nome);
+
+function calcularTotal(preco, quantidade) {
+  let total = quantidade * preco;
+  if (quantidade >= 3) {
+    total = total * 0.9;
+  }
+  return total;
+}
 
 formulario.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const nome = inputNome.value.trim();
-  const preco = inputServico.value;
-  const quantdadeString = inputQuantidade.value.trim();
-  const quantidade = Number(quantdadeString);
+  const preco = Number(inputServico.value);
+  const quantidadeString = inputQuantidade.value.trim();
+  const quantidade = Number(quantidadeString);
 
   resultado.classList.remove("d-none", "alert-success", "alert-warning");
 
   if (
     nome === "" ||
-    quantdadeString === "" ||
+    inputServico.value === "" ||
+    quantidadeString === "" ||
     !Number.isInteger(quantidade) ||
     quantidade <= 0
   ) {
@@ -51,17 +61,6 @@ formulario.addEventListener("submit", function (event) {
   resultado.textContent = `Olá ${nome}! O orçamento é de R$ ${total.toFixed(2)}`;
   resultado.classList.add("alert-success");
 });
-function calcularTotal(preco, quantidade) {
-  let = total = quantidade * preco;
-  if (quantidade >= 3) {
-    total = total * 0.9;
-  }
-  return total;
-}
-const formCadastro = document.querySelector("#formCadastro");
-const novoNome = document.querySelector("#novoNome");
-const novoPreco = document.querySelector("#novoPreco");
-const avisoCadastro = document.querySelector("#avisoCadastro");
 
 formCadastro.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -88,11 +87,11 @@ formCadastro.addEventListener("submit", function (event) {
     preco: preco,
   });
 
-  atualizarServicos();
+  atualizaServicos();
   formCadastro.reset();
 
   avisoCadastro.textContent = "Serviço cadastrado!";
   avisoCadastro.classList.add("alert-success");
 });
 
-atualizaServicos;
+atualizaServicos();
